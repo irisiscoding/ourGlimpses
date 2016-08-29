@@ -14,7 +14,7 @@ myApp.config(function($routeProvider){
 			templateUrl:'/partials/home.html'
 		})
 		.when('/album', {
-			templateUrl:'/partials/album'
+			templateUrl:'/partials/album.html'
 		})
 		.when('/meet', {
 			templateUrl:'/partials/meet.html'
@@ -22,19 +22,6 @@ myApp.config(function($routeProvider){
 		.when('/favorite', {
 			templateUrl:'/partials/favorite.html'
 		})
-		.when('/about', {
-			templateUrl:'/partials/info/about.html'
-		})
-		.when('/privacy', {
-			templateUrl:'/partials/info/privacy.html'
-		})
-		.when('/terms', {
-			templateUrl:'/partials/info/terms.html'
-		})
-		.when('/faq', {
-			templateUrl:'/partials/info/faq.html'
-		})
-
 		.otherwise({
 			redirectTo: '/'
 		});

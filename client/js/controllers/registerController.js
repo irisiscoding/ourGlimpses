@@ -1,4 +1,4 @@
-app.controller('registerController', ['$scope','userFactory', '$location', function($scope, userFactory, $location) {
+myApp.controller('registerController', ['$scope','userFactory', '$location', function($scope, userFactory, $location) {
     console.log("register controller loaded")
     $scope.register = function(){
     	console.log("registering")
