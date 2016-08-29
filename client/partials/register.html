@@ -19,22 +19,32 @@
     </ul> -->
       <ul class="nav navbar-nav navbar-right">
         <div class="login">
-            Email: <input type="text" ng-model="email">
-            Password: <input type="password" ng-model="password">
+            <!-- Email: <input type="text" ng-model="email">
+            Password: <input type="password" ng-model="password"> -->
             <!-- <p class="error" ng-if="errors">{{errors.message}}</p> -->
-            <button class="btn btn-default" ng-click="login()">Login</button>
-            <a href="#/register">New? Register Now!</a>
+            <!-- <button class="btn btn-default" ng-click="login()">Login</button>
+            <a href="#/register">New? Register Now!</a> -->
         </div>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-</div> <!-- END OF HEADER -->
+</div><!-- END OF HEADER -->
 
 <div id="container">
-    <div class="main logo">
-        <img src="static/img/logo.png" alt="logo">
-    </div>
+    <h3>Register</h3>
+    	<p>First Name: <input type="text" ng-model="first_name"></p>
+    	<p class="error" ng-if="errors.first_name">First name is required</p>
+    	<p>Last Name: <input type="text" ng-model="last_name"></p>
+    	<p class="error" ng-if="errors.last_name">Last name is required</p>
+    	<p>Email: <input type="text" ng-model="email"></p>
+    	<p class="error" ng-if="errors.email">Email must be a valid email</p>
+    	<p class="error" ng-if="hasDupEmail">That Email is already registered</p>
+    	<p>Password: <input type="password" ng-model="password"></p>
+    	<p class="error" ng-if="errors.password">Password must be greater than or equal to 8 chars</p>
+        <p>Birthday: <input type="birthdat" ng-model="birthday"></p>
+    	<a href="#/">Back to Login</a>
+    	<button class="btn btn-default" ng-click="register()">Register</button>
 </div> <!-- END OF CONTAINER -->
 
 <div id="footer">

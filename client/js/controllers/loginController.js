@@ -7,7 +7,7 @@ myApp.controller('loginController', ['$scope','userFactory', '$location', functi
     		console.log(data)
         $scope.errors = {}
         if(data.hasOwnProperty("email")){
-          $location.url('/dashboard')
+          $location.url('/home')
         }else {
           $scope.errors = data
         }
