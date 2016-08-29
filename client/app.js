@@ -15,9 +15,11 @@ myApp.config(function($routeProvider){
 		})
 		.when('/album', {
 			templateUrl:'/partials/album.html'
+                                    controller: 'albumController'
 		})
                             .when('/addAlbum', {
                                 templateUrl:'/partials/album_add.html'
+                                controller: 'albumController'
                             })
 		.when('/meet', {
 			templateUrl:'/partials/meet.html'
