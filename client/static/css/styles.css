@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 *{
     overflow: hidden;
 }
 
+=======
+>>>>>>> 410a29b3a7f25e6ecd4f4c7563cf6fbf7adc7b4c
 #header{
     height: 150px;
 	width: 100%;
@@ -15,8 +18,6 @@
 
 #container{
     text-align: center;
-    background-color: #FF0000;
-    overflow: hidden;
 }
 
 #footer{
