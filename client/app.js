@@ -16,6 +16,9 @@ myApp.config(function($routeProvider){
 		.when('/album', {
 			templateUrl:'/partials/album.html'
 		})
+                            .when('/addAlbum', {
+                                templateUrl:'/partials/album_add.html'
+                            })
 		.when('/meet', {
 			templateUrl:'/partials/meet.html'
 		})
