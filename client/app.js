@@ -3,10 +3,12 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngMessages']);
 myApp.config(function($routeProvider){
 	$routeProvider
 		.when('/', {
-			templateUrl:'/partials/main.html'
+			templateUrl:'/partials/main.html',
+			controller: 'loginController'
 		})
 		.when('/register', {
-			templateUrl:'/partials/register.html'
+			templateUrl:'/partials/register.html',
+			controller: 'registerController'
 		})
 		.when('/home', {
 			templateUrl:'/partials/home.html'
@@ -19,18 +21,6 @@ myApp.config(function($routeProvider){
 		})
 		.when('/favorite', {
 			templateUrl:'/partials/favorite.html'
-		})
-		.when('/about', {
-			templateUrl:'/partials/info/about.html'
-		})
-		.when('/terms', {
-			templateUrl:'/partials/info/terms.html'
-		})
-		.when('/privacy', {
-			templateUrl:'/partials/info/privacy.html'
-		})
-		.when('/faq', {
-			templateUrl:'/partials/info/faq.html'
 		})
 		.otherwise({
 			redirectTo: '/'

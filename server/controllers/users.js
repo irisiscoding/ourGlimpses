@@ -33,7 +33,7 @@ module.exports = {
 
 	},
 	register: function(req, res){
-		var newuser = new Users({first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password})
+		var newuser = new Users({first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password, birthday: req.body.birthday})
 		newuser.save(function(err){
 			if(err) return res.json(err);
 
