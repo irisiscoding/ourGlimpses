@@ -22,6 +22,18 @@ myApp.config(function($routeProvider){
 		.when('/favorite', {
 			templateUrl:'/partials/favorite.html'
 		})
+		.when('/about', {
+			templateUrl:'/partials/info/about.html'
+		})
+		.when('/faq', {
+			templateUrl:'/partials/info/faq.html'
+		})
+		.when('/privacy', {
+			templateUrl:'/partials/info/privacy.html'
+		})
+		.when('/term', {
+			templateUrl:'/partials/term.html'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
