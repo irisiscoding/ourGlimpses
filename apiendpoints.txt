@@ -1,0 +1,27 @@
+API Endpoints
+
+GET: /users
+Returns a JSON list of all registered users
+
+POST: /users/register
+Adds a new User to database
+Returns a User object is successful
+Returns an Error object if not
+
+POST: /users/login
+Logs in the given user (through session)
+Returns the logged in User if successful
+Returns an Error object if not
+
+GET: /users/login
+Returns the current logged in user
+Returns Error object if nobody is currently logged in
+
+GET: /albums
+Returns all albums
+
+GET: /users/<userid>/albums
+Returns all albums of a given User
+
+GET: /users/<userid>/albums/<albumid>
+Returns a single album object
