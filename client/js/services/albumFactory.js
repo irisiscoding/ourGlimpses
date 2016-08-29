@@ -1,4 +1,5 @@
 myApp.factory('albumFactory', ['$http', function($http) {
+    
     // function UserConstructor() {
     //     var self = this
     //     this.loggedIn = false

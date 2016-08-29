@@ -14,11 +14,11 @@ myApp.config(function($routeProvider){
 			templateUrl:'/partials/home.html'
 		})
 		.when('/album', {
-			templateUrl:'/partials/album.html'
+			templateUrl:'/partials/album.html',
                                     controller: 'albumController'
 		})
                             .when('/addAlbum', {
-                                templateUrl:'/partials/album_add.html'
+                                templateUrl:'/partials/album_add.html',
                                 controller: 'albumController'
                             })
 		.when('/meet', {
