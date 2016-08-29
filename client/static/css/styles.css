@@ -1,3 +1,8 @@
+*{
+    background-color: #FF0000;
+    overflow: hidden;
+}
+
 #header{
     height: 150px;
 	width: 100%;
@@ -11,6 +16,8 @@
 
 #container{
     text-align: center;
+    background-color: #FF0000;
+    overflow: hidden;
 }
 
 #footer{
