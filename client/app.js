@@ -37,7 +37,7 @@ myApp.config(function($routeProvider){
 			templateUrl:'/partials/info/privacy.html'
 		})
 		.when('/term', {
-			templateUrl:'/partials/term.html'
+			templateUrl:'/partials/info/term.html'
 		})
 		.otherwise({
 			redirectTo: '/'

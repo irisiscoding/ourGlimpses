@@ -1,6 +1,6 @@
 myApp.factory('albumFactory', ['$http', function($http) {
     
-    // function UserConstructor() {
+    function UserConstructor() {
     //     var self = this
     //     this.loggedIn = false
     //     this.users = []
@@ -52,6 +52,6 @@ myApp.factory('albumFactory', ['$http', function($http) {
     //             })
     //         }
     //     }
-    // }
-    // return (new UserConstructor());
+    }
+    return (new UserConstructor());
 }]);
