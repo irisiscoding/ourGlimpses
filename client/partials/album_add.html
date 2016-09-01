@@ -8,8 +8,8 @@ Image <input type="file" images="images" accept="image/*" fileread><br>
 https://github.com/dfala/amazon-files
 https://medium.com/@FalabellaDaniel/amazon-s3-file-upload-873b0b345089#.ce74esni5
 http://www.joshsgman.com/upload-to-and-get-images-from-amazon-s3-with-node-js/
-
-
+<button ng-click="list()">List files from server</button>
+<img src="https://s3-us-west-2.amazonaws.com/glimpses/{{url.Key}}" ng-repeat="url in urls" style="width:150px;">
 <!-- The Upload Form -->
       <div class="col-md-8">
         <div class="panel panel-default">

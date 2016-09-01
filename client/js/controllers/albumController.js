@@ -20,8 +20,8 @@ myApp.controller('albumController', ['$scope','albumFactory', '$location', funct
   $scope.sizeLimit      = 10585760; // 10MB in Bytes
   $scope.uploadProgress = 0;
   $scope.creds          = {
-   "accessKeyId": "",
-   "secretAccessKey": "",
+   "accessKeyId": "secret",
+   "secretAccessKey": "secret",
    // "region": "us-west-2"
 }
 
@@ -86,5 +86,25 @@ myApp.controller('albumController', ['$scope','albumFactory', '$location', funct
     return text;
   }
   
+
+  $scope.list = function() {
+    AWS.config.update({ accessKeyId: $scope.creds.accessKeyId, secretAccessKey: $scope.creds.secretAccessKey });
+    AWS.config.region = 'us-west-2';
+    var s3 = new AWS.S3();
+    var params = {
+      Bucket: 'glimpses', /* required */
+      // Delimiter: 'STRING_VALUE',
+      EncodingType: 'url',
+      // Marker: 'STRING_VALUE',
+      // MaxKeys: 0,
+      // Prefix: 'STRING_VALUE'
+    };
+    s3.listObjects(params, function(err, data) {
+      if (err) console.log(err, err.stack); // an error occurred
+      else     console.log(data);           // successful response
+        $scope.urls = data.Contents;
+    });    
+
+  }
 
   }]);
