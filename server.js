@@ -7,22 +7,6 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var https = require("https");
 
-// AWS D3 
-var AWS = require('aws-sdk');
-// AWS.config.loadFromPath('./config.json');
-
-var s3 = new AWS.S3();
-s3.listBuckets(function(err, data) {
-  if (err) { console.log("Error:", err); }
-  else {
-    for (var index in data.Buckets) {
-      var bucket = data.Buckets[index];
-      console.log("Bucket: ", bucket.Name, ' : ', bucket.CreationDate);
-    }
-  }
-});
-// End of AWS D3
-
 var session = require('express-session')
 // Integrate body-parser with our App
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,6 +26,24 @@ require('./server/config/mongoose.js');
 // Setting our Static Folder Directory
 app.use(express.static(path.join(__dirname, './client')));
 app.set('static', path.join(__dirname, './client'));
+app.use(express.static(path.join(__dirname, './node_modules')))
+
+// AWS D3 
+// var AWS = require('aws-sdk');
+// AWS.config.loadFromPath('./config.json');
+
+// var s3 = new AWS.S3();
+// s3.listBuckets(function(err, data) {
+//   if (err) { console.log("Error:", err); }
+//   else {
+//     for (var index in data.Buckets) {
+//       var bucket = data.Buckets[index];
+//       console.log("Bucket: ", bucket.Name, ' : ', bucket.CreationDate);
+//     }
+//   }
+// });
+// End of AWS D3
+
 // Routes
 // Root Request
 require('./server/config/routes.js')(app)
