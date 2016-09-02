@@ -17,6 +17,8 @@
     <!-- <ul class="nav navbar-nav navbar-left">
         <li><p>Glimpses</p></li>
     </ul> -->
+
+
       <ul class="nav navbar-nav navbar-right">
           <a href="#/album">album</a>
           <a href="#/favorite">favorite</a>
@@ -28,7 +30,39 @@
 </div> <!-- END OF HEADER -->
 
 <div id="container">
-    
+
+    Dashboard home page
+  <h4>Hello ****Group Name</h4>
+
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="wallpost" placeholder="Enter wallpost" ng-model="newWallpost.text" >
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary pull-right" ng-click="createWallpost(newWallpost)">Submit</button>
+      </div>
+    </div>
+  </form>
+
+  <div ng-repeat="wallpost in wallposts | filter:filter">
+    <a href="#">{{wallpost._user.first_name}} {{wallpost._user.last_name}} </a>
+    <p>{{wallpost.text}}</p>
+    <p>
+      <a href="#/like">like</a> /
+      <a href="#/wallpost/{{wallpost._id}}/new_comment">comment</a> /
+      <button ng-click="addtoFavorites(wallpost)" ng-disabled="disableVote" class="btn btn-sm btn-info">favorite</button>
+    </p>
+  </div>
+
+  <h4>&nbsp;</h4>
+   <h4 style="text-align: center">json: <a href="/users">users</a> -
+   <a href="/wallposts">wallposts</a> -
+   <a href="/comments">comments</a> -
+   <a href="/users/session">session</a></h4>
+   <h4>&nbsp;</h4>
 </div> <!-- END OF CONTAINER -->
 
 <div id="footer">

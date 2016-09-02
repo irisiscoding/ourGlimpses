@@ -85,7 +85,7 @@ myApp.controller('albumController', ['$scope','albumFactory', '$location', funct
     }
     return text;
   }
-  
+
 
   $scope.list = function() {
     AWS.config.update({ accessKeyId: $scope.creds.accessKeyId, secretAccessKey: $scope.creds.secretAccessKey });
@@ -103,7 +103,7 @@ myApp.controller('albumController', ['$scope','albumFactory', '$location', funct
       if (err) console.log(err, err.stack); // an error occurred
       else     console.log(data);           // successful response
         $scope.urls = data.Contents;
-    });    
+    });
 
   }
 

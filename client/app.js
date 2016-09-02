@@ -11,16 +11,17 @@ myApp.config(function($routeProvider){
 			controller: 'registerController'
 		})
 		.when('/home', {
-			templateUrl:'/partials/home.html'
+			templateUrl:'/partials/home.html',
+			controller: 'wallpostsController'
 		})
 		.when('/album', {
 			templateUrl:'/partials/album.html',
-                                    controller: 'albumController'
-                		})
-                        .when('/addAlbum', {
-                                    templateUrl:'/partials/album_add.html',
-                                    controller: 'albumController'
-                        })
+            controller: 'albumController'
+        })
+        .when('/addAlbum', {
+            templateUrl:'/partials/album_add.html',
+            controller: 'albumController'
+        })
 		.when('/meet', {
 			templateUrl:'/partials/meet.html'
 		})

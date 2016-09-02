@@ -31,19 +31,16 @@ myApp.controller('wallpostsController', function(wallpostsFactory, favoritesFact
     // };
 
     $scope.addtoFavorites = function(wallpost){
-      console.log(wallpost);
+      console.log(wallpost)
       if(wallpost){
-        console.log("adding to favorite controller");
         favoritesFactory.add(wallpost, (data)=>{
-          console.log('returned', data);
-          $scope.error = data.error;}) ;
-          index();
+          console.log('returned', data);$scope.error = data.error;}) ;
         }
       }
 
     $scope.createWallpost = function(newWallpost){
         if (newWallpost) {
-            newWallpost._user = $scope.session.userId;
+            newWallpost._user = $scope.session;
             console.log('I want to create this newWallpost', newWallpost);
             wallpostsFactory.create(newWallpost, (data)=>{
                 console.log('returned', data);$scope.error = data.error;}) ;

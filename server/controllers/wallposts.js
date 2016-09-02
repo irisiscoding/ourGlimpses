@@ -1,34 +1,38 @@
-var mongoose = require('mongoose');
-var Users = mongoose.model('users');
-var Wallposts = mongoose.model('wallposts');
-console.log("wallpost controller loaded");
+const mongoose = require('mongoose')
+const Wallpost = mongoose.model('wallposts')
+const User = mongoose.model('users')
 
-module.exports = {
+module.exports = (function() {
+  return {
 
     create: function(req, res){
-        var newWallpost = new Wallposts({text: req.body})
-            newWallpost._comments = [];
-            newWallpost._likes = [];
-            newWallpost.save(function(err){
-                if(err) res.json(err);
-                else res.json({success: true});
-            })
-    },
+        var wallpost = new Wallpost(req.body)
+        wallpost.save(function(err, result){
+            if(err){
+                res.json({error:err});
+            }else{
+              console.log("req body " , req.body)
+            User.update({ _user : req.session.userId }, { $push : { _wallposts : result._id } }, function(err, updated) {
+                res.send(result);
+            });
+        }
+    })},
 
-    show: function(req, res){
-        Question.find({}).populate('_comments').exec(function(err, wallpost){
-            if(err) res.json(err);
-            else res.json(wallposts);
+    index: function(req, res){
+        Wallpost.find({})
+            .populate({ // populate not necessary for this assignment, demonstration purpose only!
+              path: '_user',
+              model: 'users',
+
+          })
+        .exec(function(err, results){
+            if(err){
+              console.log(err);
+            }else{
+                res.json(results);
+            }
         })
     },
+  }
 
-    like: function(req, res){
-        Wallposts.findOne({_id: req.params.id}, function(err, wallpost){
-            wallposts.likes ++;
-            wallposts.save(function(err){
-                if(err) res.json(err);
-                else res.json({success: true});
-            })
-        })
-    }
-};
+})();

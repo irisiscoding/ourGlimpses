@@ -5,9 +5,8 @@ module.exports = function(app) {
 	app.post('/login', users.login);
 	app.post('/register', users.register)
 	app.get('/users', users.allusers);
-	app.get('/wallposts', wallposts.create);
-	app.post('/wallposts', wallposts.show);
-	app.post('/wallposts', wallposts.like);
+	app.get('/wallposts', wallposts.index);
+	app.post('/wallposts', wallposts.create);
 	// app.post('/vote', users.vote);
 	// app.post('/survey', users.getSurvey);
 	// app.post('/delete', users.deleteSurvey);
