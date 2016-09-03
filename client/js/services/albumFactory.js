@@ -1,57 +1,22 @@
-myApp.factory('albumFactory', ['$http', function($http) {
-    
-    function UserConstructor() {
-    //     var self = this
-    //     this.loggedIn = false
-    //     this.users = []
+myApp.factory('albumFactory', function($http){
 
-    //     this.login = function(user, cb){
-    //         if (typeof(cb) === 'function') {
-    //             $http.post('/login', user).then(function(data){
-    //                 console.log(data)
-    //                 if(data.data.hasOwnProperty("email")){
-    //                     self.loggedUser = data.data
-    //                     self.loggedIn = true
-    //                     console.log(self.loggedUser)
-    //                 }
-    //                 cb(data.data)
-    //             })
-    //         }
-    //     }
+    var factory = {};
 
-    //     this.register = function(user, cb){
-    //         if (typeof(cb) === 'function') {
-    //             $http.post('/register', user).then(function(data){
-    //                 if(data.data.hasOwnProperty("email")){
-    //                     self.loggedUser = data.data
-    //                     self.loggedIn = true
-    //                     console.log(self.loggedUser)
-    //                 }
-    //                 cb(data.data)
-    //             })
-    //         }
-    //     }
+    factory.create = function(album, callback){
+      console.log("creating album")
+      $http.post('/albums/', album).then(function(returned_data){
+        callback(returned_data.data)
+      });
+    };
 
-    //     this.getLoggedUser = function(cb){
-    //         $http.get('/loggedinuser').then(function(data){
-    //             if(data.data.hasOwnProperty("email")){
-    //                 self.loggedUser = data.data
-    //             } else {
-    //                 self.loggedUser = {error: "not logged in"}
-    //             }
-    //             console.log(self.loggedUser)
-    //             cb(self.loggedUser)
-    //         })
-    //     }
+    factory.index = function(callback){
+        $http.get('/albums/').then(function(returned_data){
+        callback(returned_data)
+      });
+    };
 
-    //     this.logout = function(cb){
-    //         if (typeof(cb) === 'function') {
-    //             $http.post('/logout').then(function(data){
-    //                 self.loggedIn = false
-    //                 cb(data.data)
-    //             })
-    //         }
-    //     }
-    }
-    return (new UserConstructor());
-}]);
+
+
+
+    return factory;
+});

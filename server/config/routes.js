@@ -1,5 +1,6 @@
 var users = require('../controllers/users.js');
 var wallposts = require('../controllers/wallposts.js');
+var albums = require('../controllers/albums.js');
 console.log("routes loaded")
 module.exports = function(app) {
 	app.post('/login', users.login);
@@ -14,4 +15,6 @@ module.exports = function(app) {
 	app.get('/loggedinuser', users.loggedInUser);
 	// app.get('/track', tracks.getTrack);
 	// app.post('/track', tracks.changeTrack);
+            app.get('/albums', albums.index);
+            app.post('/albums', albums.create);
 }

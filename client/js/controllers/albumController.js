@@ -1,22 +1,40 @@
-myApp.controller('albumController', ['$scope','albumFactory', '$location', function($scope, albumFactory, $location) {
+myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$location', function($scope, albumFactory, userFactory, $location) {
   console.log("album controller loaded")
 
-  $scope.album = function(){
-        console.log("getting album data ")
-      //   userFactory.album({email: $scope.email, password: $scope.password}, function(data){
-      //       console.log("userfactory response")
-      //       console.log(data)
-      //   $scope.errors = {}
-      //   if(data.hasOwnProperty("email")){
-      //     $location.url('/home')
-      //   }else {
-      //     $scope.errors = data
-      //   }
-      // })
-    }
+    var index = function(){
+         albumFactory.index(function(data){
+             $scope.albums = data.data;
+             console.log(data.data)
+         });
+        userFactory.getLoggedUser(function(data){
+            $scope.session = data;
+            console.log("get logged user" , $scope.session)
+            if (data.error) {
+                $location.path('/')
+            }
+        });
+    };
+    index();
+
+    $scope.createAlbum = function(newAlbum){        
+        if (newAlbum && $scope.file.name) {
+            console.log('image file name to be uploaded: ',$scope.file.name);
+            $scope.upload();
+            newAlbum._user = $scope.session;
+            newAlbum.image = $scope.file.name; // testing, one image per album
+            console.log('I want to create this newAlbum', newAlbum);
+            albumFactory.create(newAlbum, (data)=>{
+                console.log('returned', data);$scope.error = data.error;}) ;
+                index();
+                // $location.path('./#/album')
+              }
+         else {
+            $scope.message = "Could not create new album"
+        }
+    };
 
 
-
+// ********** upload to s3
   $scope.sizeLimit      = 10585760; // 10MB in Bytes
   $scope.uploadProgress = 0;
   $scope.creds          = {
@@ -50,6 +68,7 @@ myApp.controller('albumController', ['$scope','albumFactory', '$location', funct
             return false;
           }
           else {
+            console.log('result for putObject', data)
             // Upload Successfully Finished
             // toastr.success('File Uploaded Successfully', 'Done');
 
@@ -85,8 +104,9 @@ myApp.controller('albumController', ['$scope','albumFactory', '$location', funct
     }
     return text;
   }
+// ********** end of 'upload to s3'
 
-
+// ********** list all files from s3 server
   $scope.list = function() {
     AWS.config.update({ accessKeyId: $scope.creds.accessKeyId, secretAccessKey: $scope.creds.secretAccessKey });
     AWS.config.region = 'us-west-2';
@@ -106,5 +126,5 @@ myApp.controller('albumController', ['$scope','albumFactory', '$location', funct
     });
 
   }
-
+// ********** end of 'list all files from s3 server'
   }]);

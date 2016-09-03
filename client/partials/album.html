@@ -3,3 +3,6 @@
 <p>User name / Date / Time</p>
 
 images images ...
+
+<h2>all albums: </h2>
+<p ng-repeat="album in albums">User: {{album._user.first_name}} {{album._user.last_name}}, Title: {{album.title}}, Date {{album.date}}, Description: {{album.description}} <img src="https://s3-us-west-2.amazonaws.com/glimpses/{{album.image}}"></p>

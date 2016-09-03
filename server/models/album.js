@@ -1,13 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
   var AlbumSchema = new Schema({
-    // fileName: String,
-    // url: String, // Should store the URL of image on S3.
-    // contentType: String,
-    // size: String,
-    // dimensions: String,
+    title: String,
+    date: Date,
+    description: String,
+    image: String, // testing purpose, one image per album
 
-
+  _images : [{ type : mongoose.Schema.Types.ObjectId, ref: 'images' }],
   _user: {
     type: Schema.Types.ObjectId,
     ref: "users"

@@ -1,14 +1,16 @@
-<input type="text" name="" placeholder="Title"><br>
-<input type="date" name=""><br>
-Image <input type="file" images="images" accept="image/*" fileread><br>
-<input type="text" name="" placeholder="Description"><br>
-<button>Upload</button>
-<button>Cancel</button>
-
-https://github.com/dfala/amazon-files
+<p style="color:red">{{message}}</p>
+<!-- https://github.com/dfala/amazon-files
 https://medium.com/@FalabellaDaniel/amazon-s3-file-upload-873b0b345089#.ce74esni5
-http://www.joshsgman.com/upload-to-and-get-images-from-amazon-s3-with-node-js/
-<button ng-click="list()">List files from server</button>
+http://www.joshsgman.com/upload-to-and-get-images-from-amazon-s3-with-node-js/ -->
+<form>
+    <input type="text" name="" placeholder="Title" ng-model="newAlbum.title"><br>
+    <input type="date" name="" ng-model="newAlbum.date"><br>
+    <input type="text" name="" placeholder="Description" ng-model="newAlbum.description"><br>
+    <input type="submit" ng-click="createAlbum(newAlbum)" value="Create album with picture">
+</form>
+<br><br><br>
+
+
 <img src="https://s3-us-west-2.amazonaws.com/glimpses/{{url.Key}}" ng-repeat="url in urls" style="width:150px;">
 <!-- The Upload Form -->
       <div class="col-md-8">
@@ -19,7 +21,7 @@ http://www.joshsgman.com/upload-to-and-get-images-from-amazon-s3-with-node-js/
               <option value="10585760">10MB Upload Limit</option>
               <option value="15878640">15MB Upload Limit</option>              
             </select>
-            <h3 class="panel-title">Step 2: Upload The File</h3>
+            <h3 class="panel-title">Upload The File</h3>
           </div>
           <div class="panel-body">
             <input class="bottom-marg-15" type="file" name="file" file></input>
@@ -29,9 +31,14 @@ http://www.joshsgman.com/upload-to-and-get-images-from-amazon-s3-with-node-js/
                 {{ uploadProgress == 0 ? '' : uploadProgress + '%' }}
               </div>
             </div>            
-            <a class="btn btn-primary btn-block btn-lg" ng-click="upload()">Upload</a>
+            <a class="btn btn-primary btn-block btn-lg" ng-click="upload()">Upload to s3 only, does not create new album</a>
+
           </div>
         </div>
       </div>     
     </div>
 
+
+
+<br>
+<button ng-click="list()">List files from server</button>
