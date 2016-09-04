@@ -21,7 +21,8 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
             console.log('image file name to be uploaded: ',$scope.file.name);
             $scope.upload();
             newAlbum._user = $scope.session;
-            newAlbum.image = $scope.file.name; // testing, one image per album
+            // newAlbum.image = $scope.file.name; // testing, one image per album
+            newAlbum.image = $scope.uniqueFileName;
             console.log('I want to create this newAlbum', newAlbum);
             albumFactory.create(newAlbum, (data)=>{
                 console.log('returned', data);$scope.error = data.error;}) ;
@@ -38,8 +39,8 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
   $scope.sizeLimit      = 10585760; // 10MB in Bytes
   $scope.uploadProgress = 0;
   $scope.creds          = {
-   "accessKeyId": "secret",
-   "secretAccessKey": "secret",
+   "accessKeyId": "",
+   "secretAccessKey": "",
    // "region": "us-west-2"
 }
 
@@ -57,9 +58,9 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
           return false;
         }
         // Prepend Unique String To Prevent Overwrites
-        var uniqueFileName = $scope.uniqueString() + '-' + $scope.file.name;
+        $scope.uniqueFileName = $scope.uniqueString() + '-' + $scope.file.name;
 
-        var params = { Key: uniqueFileName, ContentType: $scope.file.type, Body: $scope.file, ServerSideEncryption: 'AES256' };
+        var params = { Key: $scope.uniqueFileName, ContentType: $scope.file.type, Body: $scope.file, ServerSideEncryption: 'AES256' };
 
         bucket.putObject(params, function(err, data) {
             console.log('putObject')

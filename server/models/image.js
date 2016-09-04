@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
   var ImageSchema = new Schema({
-    fileName: String,
+    // fileName: String,
     url: String, // Should store the URL of image on S3.
-    contentType: String,
-    size: String,
-    dimensions: String,
+    // contentType: String,
+    // size: String,
+    // dimensions: String,
 
 
   _user: {
