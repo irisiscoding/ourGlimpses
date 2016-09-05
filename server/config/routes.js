@@ -1,6 +1,7 @@
 var users = require('../controllers/users.js');
 var wallposts = require('../controllers/wallposts.js');
 var albums = require('../controllers/albums.js');
+var images = require('../controllers/images.js');
 console.log("routes loaded")
 module.exports = function(app) {
 	app.post('/login', users.login);
@@ -17,4 +18,8 @@ module.exports = function(app) {
 	// app.post('/track', tracks.changeTrack);
             app.get('/albums', albums.index);
             app.post('/albums', albums.create);
+            app.post('/albums/update', albums.update);
+            app.delete('/albums/:id', albums.delete);
+            app.get('/images', images.index);
+            app.delete('/images/:id', images.delete);
 }

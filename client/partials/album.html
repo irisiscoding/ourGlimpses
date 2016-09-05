@@ -14,12 +14,62 @@ function goBack() {
 
 
         <p ng-repeat="album in albums" style="width:300px;height:300px;border:1px solid purple;">
-            User: {{album._user.first_name}} {{album._user.last_name}}<br>
+            User: {{album._user.first_name}} {{album._user.last_name}} <b ng-click="deleteAlbum(album)">X</b><br>
             Title: {{album.title}}<br>
             Date {{album.date}}<br>
             Description: {{album.description}}<br>
-            <img src="https://s3-us-west-2.amazonaws.com/glimpses/{{album.image}}" style="width:200px;height:200px;"><br>
-             <a href="#/album">Add more pictures</a>   
-    </p>
+            <span ng-repeat="image in album._images" >
+            <img src="{{image.url}}" style="width:100px;height:100px;"><b ng-click="deleteImage(image)">X</b></span><br>
+             <a href="#/album" ng-click="add_more_enable(album._id)">Add more pictures</a>
+        </p>
+</div>
+
+<!-- add more pictures hide/show -->
+<div style="margin:5em;" ng-show="add_more_status">
+<h2>Add more image</h2>
+<p>Album ID: {{add_more_id}}</p>
+<p style="color:red">{{message}}</p>
+<!-- https://github.com/dfala/amazon-files
+https://medium.com/@FalabellaDaniel/amazon-s3-file-upload-873b0b345089#.ce74esni5
+http://www.joshsgman.com/upload-to-and-get-images-from-amazon-s3-with-node-js/ -->
+
+
+
+    <img src="https://s3-us-west-2.amazonaws.com/glimpses/{{url.Key}}" ng-repeat="url in urls" style="width:150px;">
+
+
+<!-- The Upload Form -->
+      <div class="col-md-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          <form>
+            <input type="submit" class="btn btn-primary" ng-click="addMoreImage(add_more_id)" value="Create album with one photo">
+        </form>
+        <br>
+            <h3 class="panel-title">Upload The File</h3>
+            <select class="fr" ng-model="sizeLimit">
+              <option value="5292880">5MB Upload Limit</option>
+              <option value="10585760">10MB Upload Limit</option>
+              <option value="15878640">15MB Upload Limit</option>              
+            </select>
+
+          </div>
+          <div class="panel-body">
+            <input class="bottom-marg-15" type="file" name="file" file></input>
+            <!-- Progress Bar -->
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="{{ uploadProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ uploadProgress }}%;">
+                {{ uploadProgress == 0 ? '' : uploadProgress + '%' }}
+              </div>
+            </div>            
+
+          </div>
+        </div>
+      </div>     
+    </div>
+
+
+
 
 </div>
+<!-- end of add more pictures hide/show -->

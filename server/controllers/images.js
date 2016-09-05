@@ -1,24 +1,34 @@
-var mongoose = require('mongoose');
-var Image = mongoose.model('images');
-console.log("images controller loaded");
+const mongoose = require('mongoose')
+const Image = mongoose.model('images')
+const Album = mongoose.model('albums')
 
-module.exports = {
+module.exports = (function() {
+  return {
 
-    // create: function(req, res){
-    //     var newWallpost = new Wallposts({text: req.body})
-    //         newWallpost._comments = [];
-    //         newWallpost._likes = [];
-    //         newWallpost.save(function(err){
-    //             if(err) res.json(err);
-    //             else res.json({success: true});
-    //         })
-    // },
+    delete: function(req, res){
+        console.log('delete image', req)
+        Image.remove({_id: req.params.id}, function(err, data) {
+          if(err) { console.log(err); }
+          res.json("deleted");
+        })
+    },
 
-    // show: function(req, res){
-    //     Question.find({}).populate('_comments').exec(function(err, wallpost){
-    //         if(err) res.json(err);
-    //         else res.json(wallposts);
-    //     })
-    // },
 
-};
+    index: function(req, res){
+        Image.find({})
+            .populate({ // populate not necessary for this assignment, demonstration purpose only!
+              path: '_album',
+              model: 'albums',
+
+          })
+        .exec(function(err, results){
+            if(err){
+              console.log(err);
+            }else{
+                res.json(results);
+            }
+        })
+    },
+  }
+
+})();

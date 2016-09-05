@@ -57,6 +57,7 @@ myApp.directive('file', function() {
         scope.file = file;
         scope.$parent.file = file;
         scope.$apply();
+        console.log('attached file', file)
       });
     }
   };

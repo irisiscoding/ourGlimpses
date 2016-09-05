@@ -1,6 +1,7 @@
 myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$location', function($scope, albumFactory, userFactory, $location) {
   console.log("album controller loaded")
 
+
     var index = function(){
          albumFactory.index(function(data){
              $scope.albums = data.data;
@@ -15,6 +16,13 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
         });
     };
     index();
+
+    $scope.add_more_status = false;
+    $scope.add_more_enable = function(id){
+        console.log("add more button clicked")
+        $scope.add_more_status = true;
+        $scope.add_more_id = id;
+    };
 
     $scope.createAlbum = function(newAlbum){        
         if (newAlbum && $scope.file.name) {
@@ -34,13 +42,42 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
         }
     };
 
+    $scope.addMoreImage = function(album_id){     
+        if (album_id && $scope.file.name) {
+            console.log('additional image file name to be uploaded: ',$scope.file.name);
+            $scope.upload();
+            var updateAlbum = {};
+            updateAlbum._id = album_id;
+            // newAlbum.image = $scope.file.name; // testing, one image per album
+            updateAlbum.image = $scope.uniqueFileName;
+            console.log('I want to update this updateAlbum', updateAlbum);
+            albumFactory.update(updateAlbum, (data)=>{
+                console.log('returned', data);$scope.error = data.error;}) ;
+                // index();
+                // $location.path('./#/album')
+              }
+         else {
+            $scope.message = "Could not update album"
+        }
+        index();
+    };
+    $scope.deleteImage = function(image){     
+        console.log('delete image button clicked', image);
+        albumFactory.deleteImage(image);
+        index();
+    };
+    $scope.deleteAlbum = function(album){     
+        console.log('delete album button clicked', album);
+        albumFactory.deleteAlbum(album);
+        index();
+    };
 
 // ********** upload to s3
   $scope.sizeLimit      = 10585760; // 10MB in Bytes
   $scope.uploadProgress = 0;
   $scope.creds          = {
-   "accessKeyId": "",
-   "secretAccessKey": "",
+   "accessKeyId": "secret",
+   "secretAccessKey": "secret",
    // "region": "us-west-2"
 }
 
@@ -128,4 +165,7 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
 
   }
 // ********** end of 'list all files from s3 server'
+
+
+
   }]);

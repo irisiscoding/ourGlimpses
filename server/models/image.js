@@ -8,9 +8,9 @@ var Schema = mongoose.Schema;
     // dimensions: String,
 
 
-  _user: {
+  _album: {
     type: Schema.Types.ObjectId,
-    ref: "users"
+    ref: "albums"
   },
 
 }, {timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}})
