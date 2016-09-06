@@ -25,17 +25,24 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
     };
 
     $scope.createAlbum = function(newAlbum){        
-        if (newAlbum && $scope.file.name) {
+        console.log($scope.file)
+        if ($scope.file == null) {
+            $scope.message = "Please select a picture."
+            return false;
+        }
+
+        if (newAlbum && ($scope.file.name != null)) {
             console.log('image file name to be uploaded: ',$scope.file.name);
             $scope.upload();
             newAlbum._user = $scope.session;
             // newAlbum.image = $scope.file.name; // testing, one image per album
-            newAlbum.image = $scope.uniqueFileName;
+            newAlbum.fileName = $scope.uniqueFileName;
             console.log('I want to create this newAlbum', newAlbum);
             albumFactory.create(newAlbum, (data)=>{
                 console.log('returned', data);$scope.error = data.error;}) ;
-                index();
-                // $location.path('./#/album')
+                $scope.message = ""
+                // index();
+                // $location.path('#/album')
               }
          else {
             $scope.message = "Could not create new album"
@@ -43,13 +50,17 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
     };
 
     $scope.addMoreImage = function(album_id){     
-        if (album_id && $scope.file.name) {
+        if ($scope.file == null) {
+            $scope.message = "Please select a picture."
+            return false;
+        }
+        if (album_id && ($scope.file.name != null)) {
             console.log('additional image file name to be uploaded: ',$scope.file.name);
             $scope.upload();
             var updateAlbum = {};
             updateAlbum._id = album_id;
             // newAlbum.image = $scope.file.name; // testing, one image per album
-            updateAlbum.image = $scope.uniqueFileName;
+            updateAlbum.fileName = $scope.uniqueFileName;
             console.log('I want to update this updateAlbum', updateAlbum);
             albumFactory.update(updateAlbum, (data)=>{
                 console.log('returned', data);$scope.error = data.error;}) ;
@@ -61,16 +72,8 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
         }
         index();
     };
-    $scope.deleteImage = function(image){     
-        console.log('delete image button clicked', image);
-        albumFactory.deleteImage(image);
-        index();
-    };
-    $scope.deleteAlbum = function(album){     
-        console.log('delete album button clicked', album);
-        albumFactory.deleteAlbum(album);
-        index();
-    };
+
+
 
 // ********** upload to s3
   $scope.sizeLimit      = 10585760; // 10MB in Bytes
@@ -80,11 +83,50 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
    "secretAccessKey": "secret",
    // "region": "us-west-2"
 }
+    AWS.config.update({ accessKeyId: $scope.creds.accessKeyId, secretAccessKey: $scope.creds.secretAccessKey });
+    AWS.config.region = 'us-west-2';
+
+    $scope.deleteAlbum = function(album){     
+        console.log('delete album button clicked', album);
+        console.log('images to delete from s3', album._images);
+        for (var idx=0; idx < album._images.length; idx++) {
+            console.log('IMAGE ARRAY',album._images[idx])
+            $scope.deleteImage(album._images[idx]);
+        }
+        console.log('after images deleted from s3', album);
+        albumFactory.deleteAlbum(album);
+        index();
+    };
+    $scope.deleteImage = function(image){     
+        console.log('delete image button clicked', image);
+        albumFactory.deleteImage(image);
+
+        var bucket = new AWS.S3();
+        var params = {
+                                  Bucket: 'glimpses', 
+                                  Key: image.fileName // required 
+                                };
+        bucket.deleteObject(params, function(err, data) {
+            console.log('deleteObject')
+          if(err) {
+            // toastr.error(err.message,err.code);
+            console.log(err.message)
+            return false;
+          }
+          else {
+            console.log('result for deleteObject', data)
+            // Delete Successfully Finished
+            // toastr.success('File Deleted Successfully', 'Done');
+
+
+          }
+        })
+        index();
+    };
 
   $scope.upload = function() {
     console.log("upload image")
-    AWS.config.update({ accessKeyId: $scope.creds.accessKeyId, secretAccessKey: $scope.creds.secretAccessKey });
-    AWS.config.region = 'us-west-2';
+
     var bucket = new AWS.S3({ params: { Bucket: "glimpses" } });
     console.log($scope.file)
     if($scope.file) {
@@ -109,6 +151,7 @@ myApp.controller('albumController', ['$scope','albumFactory','userFactory', '$lo
             console.log('result for putObject', data)
             // Upload Successfully Finished
             // toastr.success('File Uploaded Successfully', 'Done');
+            $scope.message = "Album created successfully"
 
             // Reset The Progress Bar
             setTimeout(function() {

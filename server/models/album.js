@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
     title: String,
     date: Date,
     description: String,
-    image: String, // testing purpose, one image per album
 
   _images : [{ type : mongoose.Schema.Types.ObjectId, ref: 'images' }],
   _user: {

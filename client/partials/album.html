@@ -19,7 +19,7 @@ function goBack() {
             Date {{album.date}}<br>
             Description: {{album.description}}<br>
             <span ng-repeat="image in album._images" >
-            <img src="{{image.url}}" style="width:100px;height:100px;"><b ng-click="deleteImage(image)">X</b></span><br>
+            <img src="{{image.url}}"" style="width:100px;height:100px;"><b ng-click="deleteImage(image)">X</b></span><br>
              <a href="#/album" ng-click="add_more_enable(album._id)">Add more pictures</a>
         </p>
 </div>
@@ -35,7 +35,7 @@ http://www.joshsgman.com/upload-to-and-get-images-from-amazon-s3-with-node-js/ -
 
 
 
-    <img src="https://s3-us-west-2.amazonaws.com/glimpses/{{url.Key}}" ng-repeat="url in urls" style="width:150px;">
+
 
 
 <!-- The Upload Form -->

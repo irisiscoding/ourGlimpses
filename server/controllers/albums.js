@@ -19,7 +19,7 @@ module.exports = (function() {
 
 
             });
-            var image = new Image({"_album":result._id, "url":"https://s3-us-west-2.amazonaws.com/glimpses/"+req.body.image});
+            var image = new Image({"_album":result._id, "fileName":req.body.fileName, "url":"https://s3-us-west-2.amazonaws.com/glimpses/"+req.body.fileName});
             image.save(function(err, image_result){
                 if(err){
                 res.json({error:err});
@@ -33,16 +33,30 @@ module.exports = (function() {
 
     })},
     delete: function(req, res){
-        console.log('delete image', req)
-        Image.remove({_id: req.params.id}, function(err, data) {
-          if(err) { console.log(err); }
-          res.json("deleted");
-        })
+        console.log('delete album')
+        Album.find({"_id":req.params.id}).exec(function(err, results){
+            if(err){
+              console.log(err);
+            }else{
+                for (var idx=0; idx < results[0]._images.length; idx++) {
+                    Image.remove({_id: results[0]._images[idx]}, function(err, data) {
+                      if(err) { console.log(err); }
+                      // res.json("deleted");
+                    })
+                }
+                Album.remove({_id: req.params.id}, function(err, data) {
+                  if(err) { console.log(err); }
+                  res.json("deleted");
+                })
+            }
+        });
+
+
     },
     update: function(req, res){
         console.log('album updating')
         console.log(req.body)
-        var image = new Image({"_album":req.body._id, "url":"https://s3-us-west-2.amazonaws.com/glimpses/"+req.body.image});
+        var image = new Image({"_album":req.body._id, "fileName":req.body.fileName, "url":"https://s3-us-west-2.amazonaws.com/glimpses/"+req.body.fileName});
             image.save(function(err, image_result){
                 if(err){
                 res.json({error:err});
